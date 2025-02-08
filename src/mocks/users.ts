@@ -7,6 +7,7 @@ export const USERS:User[] = [
         email: "jose@user.com",
         phone: "222 222",
         city: "Bogotá D.C.",
+        date: "2023-01-01",
     },
     {
         id: 2,
@@ -14,5 +15,6 @@ export const USERS:User[] = [
         email: "maria@user.com",
         phone: "333 333",
         city: "Cali",
+        date: "2023-01-02",
     },
 ]

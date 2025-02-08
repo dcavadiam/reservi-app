@@ -1,9 +1,28 @@
-import { Input } from "@/components/ui/input";
 import { TimeBlockForm } from "@/components/form/TimeBlockForm";
 import { UserForm } from "@/components/form/UserForm";
-import { UsersTable } from "@/components/table";
+import { DataTable } from "@/components/table/reservations/data-table";
+import { columns } from "@/components/table/reservations/columns"
+import { USERS } from "@/mocks/users";
+
+// async function getData(): Promise<Reservation[]> {
+//     // Fetch data from your API here.
+//     return [
+//         {
+//             id: "728ed52f",
+//             name: "Diego",
+//             phone: "23456787",
+//             email: "diego@user.com",
+//             city: "Barranquilla",
+//             date: "",
+//         },
+//         // ...
+//     ]
+// }
+
+
 
 export const Main = () => {
+    // const data = await getData()
     return (
         <main className="w-full flex gap-4 p-4 ">
             <section className="w-1/5 flex gap-4 justify-center">
@@ -21,18 +40,14 @@ export const Main = () => {
                 </div>
             </section>
             <section className="w-3/5">
-                <div className="flex justify-between items-center">
-                    <h2>Lista de usuarios</h2>
-                    <Input className="w-full max-w-[150px]" placeholder="Buscar" />
-                </div>
-                <UsersTable />
+                {/* <UsersTable /> */}
+                <DataTable columns={columns} data={USERS} />
             </section>
             <section className="w-1/5">
                 <h2 className="text-center font-bold">Nuevo usuario</h2>
                 <UserForm />
                 <h2 className="text-center font-bold">Crear bloque de tiempo</h2>
                 <TimeBlockForm />
-
             </section>
         </main>
     )
