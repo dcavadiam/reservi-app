@@ -24,7 +24,7 @@ import { USERS } from "@/mocks/users";
 export const Main = () => {
     // const data = await getData()
     return (
-        <main className="w-full flex max-md:flex-col gap-4 p-4 ">
+        <main className="w-full flex flex-1 max-md:flex-col gap-4 p-4 ">
             <section className="flex gap-4 justify-center md:w-1/5 max-md:flex-col-reverse">
                 <div className="h-full flex md:flex-col justify-between items-center md:pt-7">
                     <span className="text-center text-xs">00:00</span>
