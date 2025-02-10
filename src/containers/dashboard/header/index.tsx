@@ -20,13 +20,14 @@ export const Header = () => {
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
     return (
-        <header className="flex items-center justify-between py-4 px-10 border-b-[1px] border-opacity-20 border-white">
+        <header className="flex items-center justify-between py-4 px-4 sm:px-10 border-b-[1px] border-opacity-20 border-white">
             <h1 className="text-xl font-bold text-black dark:text-white">Reservas</h1>
             <div className="flex gap-4">
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button variant="outline" className="hover:scale-105 duration-200">
-                            <UserRoundPlus /> Añadir usuario
+                            <UserRoundPlus /> 
+                            <span className="max-sm:hidden">Añadir usuario</span>
                         </Button>
                     </DialogTrigger>
                     <DialogContent>
@@ -44,7 +45,7 @@ export const Header = () => {
                         <DialogTrigger asChild>
                             <Button variant="outline" className="duration-300 hover:scale-105">
                                 <CalendarPlus />
-                                Crear bloque de tiempo
+                                <span className="max-sm:hidden">Crear bloque de tiempo</span>
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
