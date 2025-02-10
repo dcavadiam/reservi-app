@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 
     const table = useReactTable({
-        data,
+        data: data || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
@@ -50,7 +50,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         <div>
             <div>
                 <div className="flex items-center gap-4 py-4 justify-between">
-                    <h2>Lista de usuarios</h2>
+                    <h2 className="text-xl font-bold text-black dark:text-white">Lista de usuarios</h2>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="ml-auto">
@@ -103,7 +103,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </TableHeader>
                 <TableBody>
                     {
-                        table.getRowModel().rows?.length ? table.getRowModel().rows.map((row) => (
+                        table.getRowModel().rows.length ? table.getRowModel().rows.map((row) => (
                             <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
 
                                 {

@@ -13,6 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useUserContext } from "@/context/userContext";
+import { User } from "@/types/user";
+import { useEffect } from "react";
 
 const formSchema = z.object({
     name: z.string().nonempty(
@@ -29,9 +31,15 @@ const formSchema = z.object({
     ),
 });
 
-export function UserForm() {
+
+interface UserFormProps {
+    user?: User
+    onClose?: () => void
+}
+
+export function UserForm({ user, onClose }: UserFormProps) {
     const { toast } = useToast(); // Inicializa useToast
-    const { addUser } = useUserContext();
+    const { addUser, editUser } = useUserContext();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -42,17 +50,38 @@ export function UserForm() {
         }
     });
 
+    // Set user values in form if provided
+    useEffect(() => {
+        if (user) {
+            form.setValue("name", user.name);
+            form.setValue("phone", user.phone);
+            form.setValue("email", user.email);
+            form.setValue("city", user.city);
+        }
+    },
+        [user, form])
+
+
     function onSubmit(data: z.infer<typeof formSchema>) {
-        // Simula una carga exitosa
-        console.log(data);
-        addUser({
-            id: crypto.randomUUID(),
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            city: data.city,
-            date: "",
-        });
+        // Crea un nuevo usuario
+        if (user) {
+            editUser(user.id, {
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                city: data.city,
+            });
+        } else {
+            addUser({
+                id: crypto.randomUUID(),
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                city: data.city,
+                date: [],
+            });
+        }
+
         // Muestra el toast de éxito
         toast({
             title: "Usuario guardado",
@@ -62,6 +91,7 @@ export function UserForm() {
 
         // Limpia el formulario después de enviar (opcional)
         form.reset();
+        if (onClose) onClose();
     }
 
     return (
@@ -91,7 +121,11 @@ export function UserForm() {
                         <FormMessage />
                     </FormItem>
                 )} />
-                <Button className="w-fit" type="submit">Guardar</Button>
+                <Button className="w-fit" type="submit">
+                    {
+                        user ? "Actualizar" : "Guardar"
+                    }
+                </Button>
             </form>
         </Form>
     );

@@ -21,12 +21,6 @@ export const Main = () => {
             <section className="md:w-4/5 md:pr-8">
                 <DataTable columns={columns} data={users} />
             </section>
-            {/* <section className="md:w-1/5">
-                <h2 className="text-center font-bold">Nuevo usuario</h2>
-                <UserForm />
-                <h2 className="text-center font-bold">Crear bloque de tiempo</h2>
-                <TimeBlockForm />
-            </section> */}
         </main>
     )
 }
