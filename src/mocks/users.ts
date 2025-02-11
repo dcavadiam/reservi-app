@@ -6,7 +6,7 @@ export const USERS: User[] = [
     name: "Jose",
     email: "jose@user.com",
     phone: "222 222",
-    city: "Bogotá D.C.",
+    address: "Bogotá D.C.",
     date: [],
   },
   {
@@ -14,7 +14,7 @@ export const USERS: User[] = [
     name: "Maria",
     email: "maria@user.com",
     phone: "333 333",
-    city: "Cali",
+    address: "Cali",
     date: [],
   },
 ];

@@ -27,7 +27,7 @@ export const UsersTable = () => {
                                 {user.phone}
                             </TableCell>
                             <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.city}</TableCell>
+                            <TableCell>{user.address}</TableCell>
                             <TableCell>
                                 <div className="w-7 h-7 bg-red-200 border-white border rounded-md"></div>
                             </TableCell>

@@ -26,7 +26,7 @@ const formSchema = z.object({
     email: z.string().email(
         { message: "Por favor digite un correo válido" }
     ),
-    city: z.string().nonempty(
+    address: z.string().nonempty(
         { message: "Por favor digite una ciudad" }
     ),
 });
@@ -46,7 +46,7 @@ export function UserForm({ user, onClose }: UserFormProps) {
             name: "",
             phone: "",
             email: "",
-            city: "",
+            address: "",
         }
     });
 
@@ -56,7 +56,7 @@ export function UserForm({ user, onClose }: UserFormProps) {
             form.setValue("name", user.name);
             form.setValue("phone", user.phone);
             form.setValue("email", user.email);
-            form.setValue("city", user.city);
+            form.setValue("address", user.address);
         }
     },
         [user, form])
@@ -69,7 +69,7 @@ export function UserForm({ user, onClose }: UserFormProps) {
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                city: data.city,
+                address: data.address,
             });
         } else {
             addUser({
@@ -77,7 +77,7 @@ export function UserForm({ user, onClose }: UserFormProps) {
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                city: data.city,
+                address: data.address,
                 date: [],
             });
         }
@@ -115,7 +115,7 @@ export function UserForm({ user, onClose }: UserFormProps) {
                         <FormMessage />
                     </FormItem>
                 )} />
-                <FormField control={form.control} name="city" render={({ field }) => (
+                <FormField control={form.control} name="address" render={({ field }) => (
                     <FormItem>
                         <Input placeholder="Ciudad" {...field} />
                         <FormMessage />

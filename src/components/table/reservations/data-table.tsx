@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             globalFilter: filterText // Usamos un filtro global
         },
         globalFilterFn: (row, columnId, filterValue) => {
-            const columnsToSearch = selectedTags.length === 0 ? ["name", "email", "phone", "city"] : selectedTags;
+            const columnsToSearch = selectedTags.length === 0 ? ["name", "email", "phone", "address"] : selectedTags;
             return columnsToSearch.some((col) => {
                 const value = row.getValue(col);
                 return String(value).toLowerCase().includes(filterValue.toLowerCase())

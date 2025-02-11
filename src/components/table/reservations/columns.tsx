@@ -92,11 +92,11 @@ export const columns: ColumnDef<User>[] = [
         }
     },
     {
-        accessorKey: "city",
-        header: "Ciudad",
+        accessorKey: "address",
+        header: "Dirección",
         cell: ({ row }) => {
             return (
-                <div className="font-semibold text-base text-gray-300">{row.original.city}</div>
+                <div className="font-semibold text-base text-gray-300">{row.original.address}</div>
             )
         }
     },
