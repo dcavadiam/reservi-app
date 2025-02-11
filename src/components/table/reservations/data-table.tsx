@@ -2,18 +2,13 @@
 
 import {
     ColumnDef,
-    VisibilityState,
+    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
+    getFilteredRowModel,
     useReactTable,
 } from "@tanstack/react-table";
 
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 import {
     Table,
@@ -25,7 +20,9 @@ import {
 } from "@/components/ui/table";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { MultiSelect } from "@/components/table/reservations/Multiselect";
+import { Input } from "@/components/ui/input";
+import { useTagsContext } from "@/context/tagsContext";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -33,52 +30,49 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [filterText, setFilterText] = useState(""); // Estado único para el input
+    const { tags } = useTagsContext();
 
-    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+    const selectedTags = tags.map((tag) => tag.value);
 
     const table = useReactTable({
         data: data || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
+        getFilteredRowModel: getFilteredRowModel(),
+        onColumnFiltersChange: setColumnFilters,
         state: {
-            columnVisibility
-        }
-    })
+            columnFilters,
+            globalFilter: filterText // Usamos un filtro global
+        },
+        globalFilterFn: (row, columnId, filterValue) => {
+            const columnsToSearch = selectedTags.length === 0 ? ["name", "email", "phone", "city"] : selectedTags;
+            return columnsToSearch.some((col) => {
+                const value = row.getValue(col);
+                return String(value).toLowerCase().includes(filterValue.toLowerCase())
+            }
+            );
+        },
+    });
+
 
     return (
         <div>
             <div>
                 <div className="flex items-center gap-4 py-4 justify-between">
                     <h2 className="text-xl font-bold text-black dark:text-white">Lista de usuarios</h2>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto">
-                                Filtros
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            {table
-                                .getAllColumns()
-                                .filter(
-                                    (column) => column.getCanHide()
-                                )
-                                .slice(0, 5).map((column) => {
-                                    return (
-                                        <DropdownMenuCheckboxItem
-                                            key={column.id}
-                                            className="capitalize"
-                                            checked={column.getIsVisible()}
-                                            onCheckedChange={(value) =>
-                                                column.toggleVisibility(!!value)
-                                            }
-                                        >
-                                            {column.id}
-                                        </DropdownMenuCheckboxItem>
-                                    )
-                                })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+
+                    
+                    <div className="flex items-center py-4 gap-3">
+                        <MultiSelect />
+                        <Input
+                            placeholder="Buscar..."
+                            value={filterText}
+                            onChange={(event) => setFilterText(event.target.value)}
+                            className="max-w-sm"
+                        />
+                    </div>
                 </div>
             </div>
             <Table>

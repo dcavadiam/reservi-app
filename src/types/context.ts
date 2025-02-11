@@ -1,4 +1,5 @@
 import { Block } from "./block";
+import { Tag } from "./tag";
 import { User } from "./user";
 
 export interface UserContextType {
@@ -8,4 +9,9 @@ export interface UserContextType {
     deleteUser: (id:string) => void;
     addDate: (id:string, date: Block) => void;
     // editDate: (id:string, date: object) => void;
+}
+
+export interface TagContextType {
+  tags: Tag[];
+  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
 }

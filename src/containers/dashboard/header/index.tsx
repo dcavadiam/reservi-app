@@ -73,7 +73,7 @@ export const Header = () => {
                         }}
                     >
                         <CalendarPlus />
-                        Crear bloque de tiempo
+                        <span className="max-sm:hidden">Crear bloque de tiempo</span>
                     </Button>
                 )}
             </div>

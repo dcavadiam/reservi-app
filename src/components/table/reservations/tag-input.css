@@ -1,0 +1,52 @@
+/* Definición de variables para modo oscuro (por defecto) */
+:root {
+  --option-list-bg: #121212;
+  --highlight-bg: #fff;
+  --highlight-text: #000;
+  --hover-bg: #fff;
+  --hover-text: #000;
+  --chip-bg: #2d2d2d;
+  --chip-text: #fff; /* Si deseas definir el color del texto en el chip */
+}
+
+/* Sobreescribir variables para modo claro */
+@media (prefers-color-scheme: light) {
+  :root {
+    --option-list-bg: #f9f9f9; /* Fondo claro para el contenedor */
+    --highlight-bg: #000; /* Opción resaltada con fondo oscuro */
+    --highlight-text: #fff; /* Texto blanco en opción resaltada */
+    --hover-bg: #000; /* Hover: fondo oscuro */
+    --hover-text: #fff; /* Hover: texto blanco */
+    --chip-bg: #e5e5e5; /* Chip con fondo claro */
+    --chip-text: #000; /* Chip: texto oscuro */
+  }
+}
+
+/* Aplicación de las variables */
+.optionListContainer {
+  background-color: var(--option-list-bg) !important;
+}
+
+.optionListContainer .highlightOption {
+  background: var(--highlight-bg) !important;
+  color: var(--highlight-text) !important;
+}
+
+.multiSelectContainer li:hover {
+  background: var(--hover-bg) !important;
+  color: var(--hover-text) !important;
+  cursor: pointer;
+}
+
+.chip {
+  align-items: center;
+  background: var(--chip-bg) !important;
+  border-radius: 11px;
+  display: inline-flex;
+  font-size: 13px;
+  line-height: 19px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 4px 10px;
+  color: var(--chip-text) !important;
+}
