@@ -25,17 +25,17 @@ export const Timeline = () => {
         <section className="flex gap-2 p-6 justify-center max-w-[600px] md:w-1/5 h-auto md:height-[600px] max-md:flex-col-reverse reverse">
             <div className="h-full flex md:flex-col justify-between items- md:pt-7">
                 <span className="text-center text-xs">00:00</span>
-                <span className="text-center text-xs">02:00</span>
-                <span className="text-center text-xs">04:00</span>
+                <span className="text-center text-xs hidden md:block">02:00</span>
+                <span className="text-center text-xs hidden md:block">04:00</span>
                 <span className="text-center text-xs">06:00</span>
-                <span className="text-center text-xs">08:00</span>
-                <span className="text-center text-xs">10:00</span>
+                <span className="text-center text-xs hidden md:block">08:00</span>
+                <span className="text-center text-xs hidden md:block">10:00</span>
                 <span className="text-center text-xs">12:00</span>
-                <span className="text-center text-xs">14:00</span>
-                <span className="text-center text-xs">16:00</span>
+                <span className="text-center text-xs hidden md:block">14:00</span>
+                <span className="text-center text-xs hidden md:block">16:00</span>
                 <span className="text-center text-xs">18:00</span>
-                <span className="text-center text-xs">20:00</span>
-                <span className="text-center text-xs">22:00</span>
+                <span className="text-center text-xs hidden md:block">20:00</span>
+                <span className="text-center text-xs hidden md:block">22:00</span>
                 <span className="text-center text-xs">24:00</span>
             </div>
             <div className=" h-full flex flex-col items-center gap-4">
