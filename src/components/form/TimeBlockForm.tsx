@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import { validateDateRange, validateAgainstCurrentDate, validateNoOverlap } from "@/helpers/dateValidations";
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -24,6 +24,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useUserContext } from "@/context/userContext"
 import { Block } from "@/types/block"
 
+// Form schema for validation and type checking
 const formSchema = z.object({
     user: z.string().min(1, "Por favor seleccione un usuario").refine(value => value !== "Seleccione un usuario", {
         message: "Por favor seleccione un usuario"
@@ -42,9 +43,12 @@ interface TimeBlockFormProps {
 }
 
 export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
-    const { toast } = useToast(); // Inicializa useToast
+    const { toast } = useToast();
     const { users, addDate } = useUserContext();
+    const dates = users.flatMap(user => user.date);
+    console.log(new Date().toLocaleDateString());
 
+    // Form state management
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -56,26 +60,54 @@ export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
     })
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-        const blockTime: Block = {
-            id: crypto.randomUUID(),
-            color: data.color,
-            initialDate: data.initialDate.toString(),
-            finalDate: data.finalDate.toString(),
+        // Validate if the date range is valid
+        let errorMessage = validateDateRange(data.initialDate, data.finalDate);
+        if (errorMessage) {
+            toast({ title: "Error", description: errorMessage, variant: "destructive" });
+            return;
+        }
+        // Validate if the initial date is not in the past
+        errorMessage = validateAgainstCurrentDate(data.initialDate);
+        if (errorMessage) {
+            toast({ title: "Error", description: errorMessage, variant: "destructive" });
+            return;
+        }
+        // Validate if there is no overlap with other blocks
+        errorMessage = validateNoOverlap(data.initialDate, data.finalDate, dates);
+        if (errorMessage) {
+            toast({ title: "Error", description: errorMessage, variant: "destructive" });
+            return;
         }
 
+        // Create and add the block
+        const blockTime: Block = {
+            id: crypto.randomUUID(),
+            userId: data.user,
+            color: data.color,
+            initialDate: data.initialDate,
+            finalDate: data.finalDate,
+        };
+
+        // Add the block to the user's context
         addDate(data.user, blockTime);
 
-        // Muestra el toast de éxito
+        // Display a toast message
         toast({
             title: "Bloque guardado",
             description: "El bloque de tiempo ha sido guardado correctamente.",
             variant: "default",
         });
 
-        // Limpia el formulario después de enviar (opcional)
         form.reset();
+        // Call the onClose function if it exists
         if (onClose) onClose();
     }
+
+    // Limited date input to next day of today (tomorrow)
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    console.log(tomorrow.toLocaleDateString());
 
     return (
         <Form {...form}>
@@ -117,7 +149,7 @@ export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
                     <FormField control={form.control} name="initialDate" render={({ field, fieldState }) => (
                         <FormItem>
                             <FormLabel>Fecha inicio</FormLabel>
-                            <Input type="datetime-local" value={field.value} onChange={field.onChange} min={new Date().toISOString().slice(0, 16)}
+                            <Input type="datetime-local" value={field.value} onChange={field.onChange} min={new Date(tomorrow).toISOString().slice(0, 16)}
                             />
                             <FormMessage>{fieldState.error?.message}</FormMessage>
                         </FormItem>
@@ -125,7 +157,7 @@ export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
                     <FormField control={form.control} name="finalDate" render={({ field, fieldState }) => (
                         <FormItem>
                             <FormLabel>Fecha final</FormLabel>
-                            <Input type="datetime-local" value={field.value} onChange={field.onChange} min={new Date().toISOString().slice(0, 16)}
+                            <Input type="datetime-local" value={field.value} onChange={field.onChange} min={new Date(tomorrow).toISOString().slice(0, 16)}
                             />
                             <FormMessage>{fieldState.error?.message}</FormMessage>
                         </FormItem>
