@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table";
 
 import { useState } from "react";
-import { MultiSelect } from "@/components/Table/reservations/Multiselect";
+import { MultiSelect } from "@/components/table/reservations/Multiselect";
 import { Input } from "@/components/ui/input";
 import { useTagsContext } from "@/context/tagsContext";
 import { DateSelect } from "@/components/DateSelect";
@@ -32,7 +32,7 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [filterText, setFilterText] = useState(""); 
+    const [filterText, setFilterText] = useState("");
     const { tags } = useTagsContext();
 
     const selectedTags = tags.map((tag) => tag.value);
@@ -45,7 +45,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         onColumnFiltersChange: setColumnFilters,
         state: {
             columnFilters,
-            globalFilter: filterText 
+            globalFilter: filterText
         },
         globalFilterFn: (row, columnId, filterValue) => {
             const columnsToSearch = selectedTags.length === 0 ? ["name", "email", "phone", "address"] : selectedTags;
