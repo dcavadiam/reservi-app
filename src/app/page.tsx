@@ -22,10 +22,10 @@ export default function Home() {
       />
       <section className='flex flex-col gap-6'>
         <div>
-          <h1 className={`text-7xl text-center font-semibold text-black dark:text-white ${montserrat.className}`}>BIENVIDO A</h1>
-          <TypingAnimation className='text-9xl text-center text-primary' duration={400}>RESERVI</TypingAnimation>
+          <h1 className={`text-4xl md:text-7xl text-center font-semibold text-black dark:text-white ${montserrat.className}`}>BIENVENIDO A</h1>
+          <TypingAnimation className='text-5xl md:text-9xl text-center text-primary' duration={400}>RESERVI</TypingAnimation>
         </div>
-        <p className='text-2xl text-center w-[560px]'>Reservi es una aplicación web que te permite <span className='font-bold'>crear y gestionar</span> tus reservas de tiempo en línea.</p>
+        <p className='text-lg md:text-2xl text-center max-w-[560px]'>Reservi es una aplicación web que te permite <span className='font-bold'>crear y gestionar</span> tus reservas de tiempo en línea.</p>
       </section>
       <Link href="/dashboard">
         <RainbowButton>Acceder al dashboard</RainbowButton>

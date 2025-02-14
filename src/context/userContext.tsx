@@ -1,6 +1,9 @@
+'use client';
 import { isToday } from "@/helpers/isToday";
+import { fetchRandomUsers } from "@/lib/api";
 import { Block } from "@/types/block";
 import { UserContextType } from "@/types/context";
+import { Result } from "@/types/randomUsers";
 import { User } from "@/types/user";
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
@@ -13,18 +16,41 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     // Load users from localStorage on mount
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const storedUsers = localStorage.getItem("reservi-users");
-            if (storedUsers) {
-                try {
-                    const parsedUsers: User[] = JSON.parse(storedUsers);
-                    setUsers(parsedUsers);
-                } catch (error) {
-                    console.error("Error al parsear los usuarios desde localStorage", error);
+        const loadUsers = async () => {
+            if (typeof window !== "undefined") {
+                // If the localStorage has users, set them
+                const storedUsers = localStorage.getItem("reservi-users");
+                if (storedUsers) {
+                    try {
+                        const parsedUsers: User[] = JSON.parse(storedUsers);
+                        setUsers(parsedUsers);
+                    } catch (error) {
+                        console.error("Error al parsear los usuarios desde localStorage", error);
+                    }
+                } else {
+                    // If don't have users in localStorage, fetch them from the API
+                    try {
+                        const randomUsers = await fetchRandomUsers();
+                        // Map the randomUsers to User type
+                        const newUsers: User[] = randomUsers.map((user: Result) => ({
+                            id: user.login.uuid,
+                            name: `${user.name.first} ${user.name.last}`,
+                            email: user.email,
+                            phone: user.cell,
+                            address: `${user.location.street.number} ${user.location.street.name}`,
+                            date: []
+                        }));
+                        setUsers(newUsers);
+                        localStorage.setItem("reservi-users", JSON.stringify(newUsers));
+                    } catch (error) {
+                        console.error("Error al obtener usuarios random:", error);
+                    }
                 }
             }
-        }
+        };
+        loadUsers();
     }, []);
+
 
     // update filteredUsers when users or todayDate change
     useEffect(() => {
