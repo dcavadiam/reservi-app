@@ -1,5 +1,5 @@
-import { TimeBlockForm } from "@/components/Form/TimeBlockForm"
-import { UserForm } from "@/components/Form/UserForm"
+import { TimeBlockForm } from "@/components/form/TimeBlockForm"
+import { UserForm } from "@/components/form/UserForm"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,

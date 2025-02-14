@@ -18,9 +18,10 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { useUserContext } from "@/context/userContext";
-import { UserForm } from "@/components/Form/UserForm";
+
 import { useState } from "react";
 import { Block } from "@/types/block";
+import { UserForm } from "@/components/form/UserForm";
 
 const ActionsCell = ({ row }: { row: Row<User> }) => {
     const user = row.original as User
