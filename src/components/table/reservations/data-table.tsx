@@ -20,9 +20,10 @@ import {
 } from "@/components/ui/table";
 
 import { useState } from "react";
-import { MultiSelect } from "@/components/table/reservations/Multiselect";
+import { MultiSelect } from "@/components/Table/reservations/Multiselect";
 import { Input } from "@/components/ui/input";
 import { useTagsContext } from "@/context/tagsContext";
+import { DateSelect } from "@/components/DateSelect";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -31,7 +32,7 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [filterText, setFilterText] = useState(""); // Estado único para el input
+    const [filterText, setFilterText] = useState(""); 
     const { tags } = useTagsContext();
 
     const selectedTags = tags.map((tag) => tag.value);
@@ -44,7 +45,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         onColumnFiltersChange: setColumnFilters,
         state: {
             columnFilters,
-            globalFilter: filterText // Usamos un filtro global
+            globalFilter: filterText 
         },
         globalFilterFn: (row, columnId, filterValue) => {
             const columnsToSearch = selectedTags.length === 0 ? ["name", "email", "phone", "address"] : selectedTags;
@@ -63,8 +64,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 <div className="flex items-center gap-4 py-4 justify-between">
                     <h2 className="text-xl font-bold text-black dark:text-white">Lista de usuarios</h2>
 
-                    
+
                     <div className="flex items-center py-4 gap-3">
+                        <DateSelect />
                         <MultiSelect />
                         <Input
                             placeholder="Buscar..."

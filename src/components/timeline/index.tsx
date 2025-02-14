@@ -1,19 +1,12 @@
 import { useUserContext } from "@/context/userContext";
+import { isToday } from "@/helpers/isToday";
+
 
 export const Timeline = () => {
-    const { users } = useUserContext();
+    const { users, todayDate } = useUserContext();
 
     const dates = users.flatMap(user => user.date);
-    const todayDates = dates.filter(date => isToday(new Date(date.initialDate)));
-
-    function isToday(date: Date) {
-        const today = new Date();
-        return (
-            date.getDate() === today.getDate() &&
-            date.getMonth() === today.getMonth() &&
-            date.getFullYear() === today.getFullYear()
-        );
-    }
+    const todayDates = dates.filter(date => isToday(new Date(date.initialDate), todayDate));
 
     const calculateTimeDiff = (date1: Date, date2: Date) => {
         const diffInMilliseconds = Math.abs(date1.getTime() - date2.getTime());

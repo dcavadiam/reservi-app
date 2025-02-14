@@ -1,5 +1,5 @@
-import { TimeBlockForm } from "@/components/form/TimeBlockForm"
-import { UserForm } from "@/components/form/UserForm"
+import { TimeBlockForm } from "@/components/Form/TimeBlockForm"
+import { UserForm } from "@/components/Form/UserForm"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -26,7 +26,7 @@ export const Header = () => {
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button variant="outline" className="hover:scale-105 duration-200">
-                            <UserRoundPlus /> 
+                            <UserRoundPlus />
                             <span className="max-sm:hidden">Añadir usuario</span>
                         </Button>
                     </DialogTrigger>

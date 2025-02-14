@@ -46,7 +46,6 @@ export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
     const { toast } = useToast();
     const { users, addDate } = useUserContext();
     const dates = users.flatMap(user => user.date);
-    console.log(new Date().toLocaleDateString());
 
     // Form state management
     const form = useForm<z.infer<typeof formSchema>>({
@@ -107,7 +106,6 @@ export function TimeBlockForm({ onClose }: TimeBlockFormProps) {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-    console.log(tomorrow.toLocaleDateString());
 
     return (
         <Form {...form}>

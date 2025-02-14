@@ -1,4 +1,3 @@
-// components/MultiSelectExample.tsx
 import Multiselect from 'multiselect-react-dropdown';
 import { Tag } from '@/types/tag';
 import { useTagsContext } from '@/context/tagsContext';

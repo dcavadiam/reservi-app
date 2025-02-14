@@ -18,14 +18,14 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { useUserContext } from "@/context/userContext";
-import { UserForm } from "@/components/form/UserForm";
+import { UserForm } from "@/components/Form/UserForm";
 import { useState } from "react";
 import { Block } from "@/types/block";
 
 const ActionsCell = ({ row }: { row: Row<User> }) => {
     const user = row.original as User
     const { deleteUser } = useUserContext()
-    const [open, setOpen] = useState(false); // Controla el estado del Dialog
+    const [open, setOpen] = useState(false);
 
     return (
         <DropdownMenu>

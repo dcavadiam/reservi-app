@@ -1,7 +1,7 @@
-import { DataTable } from "@/components/table/reservations/data-table";
-import { columns } from "@/components/table/reservations/columns"
+import { DataTable } from "@/components/Table/reservations/data-table";
+import { columns } from "@/components/Table/reservations/columns"
 import { useUserContext } from "@/context/userContext";
-import { Timeline } from "@/components/timeline";
+import { Timeline } from "@/components/Timeline";
 
 export const Main = () => {
     const { users } = useUserContext();

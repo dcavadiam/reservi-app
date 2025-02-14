@@ -33,7 +33,7 @@ export const isOverlap = (
   const newEnd = new Date(newFinal).getTime();
   const existingStart = new Date(existingInitial).getTime();
   const existingEnd = new Date(existingFinal).getTime();
-  // Se solapan si newStart < existingEnd && existingStart < newEnd
+  // If newStart < existingEnd && existingStart < newEnd then there is an overlap
   return newStart < existingEnd && existingStart < newEnd;
 };
 

@@ -38,7 +38,7 @@ interface UserFormProps {
 }
 
 export function UserForm({ user, onClose }: UserFormProps) {
-    const { toast } = useToast(); // Inicializa useToast
+    const { toast } = useToast();
     const { addUser, editUser } = useUserContext();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -63,7 +63,6 @@ export function UserForm({ user, onClose }: UserFormProps) {
 
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-        // Crea un nuevo usuario
         if (user) {
             editUser(user.id, {
                 name: data.name,
@@ -82,14 +81,12 @@ export function UserForm({ user, onClose }: UserFormProps) {
             });
         }
 
-        // Muestra el toast de éxito
         toast({
             title: "Usuario guardado",
             description: "El usuario ha sido guardado correctamente.",
             variant: "default",
         });
 
-        // Limpia el formulario después de enviar (opcional)
         form.reset();
         if (onClose) onClose();
     }
