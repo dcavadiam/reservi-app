@@ -12,6 +12,28 @@ body {
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --radius: 0.7rem;
+    /* Light Theme */
+    --background: #ffffff;
+    --foreground: #232D3F;
+    --primary: #005B41;
+    --primary-foreground: #ffffff;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
+  }
+  .dark {
+    /* Dark Theme */
+    --background: #0F0F0F;
+    --foreground: #ffffff;
+    --primary: #008170;
+    --primary-foreground: #ffffff;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
   }
 }

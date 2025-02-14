@@ -15,13 +15,19 @@ import { ToastAction } from "@radix-ui/react-toast"
 
 import { UserRoundPlus, CalendarPlus } from "lucide-react"
 import { useState } from "react"
+
+import { Inter } from "next/font/google"
+import { ModeToggle } from "@/components/ThemeToggle"
+
+const montserrat = Inter({ subsets: ["latin"] })
+
 export const Header = () => {
     const { users } = useUserContext();
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
     return (
-        <header className="flex items-center justify-between py-4 px-4 sm:px-10 border-b-[1px] border-opacity-20 border-white">
-            <h1 className="text-xl font-bold text-black dark:text-white">Reservas</h1>
+        <header className="flex items-center justify-between py-4 px-4 sm:px-10 border-b-[1px] border-opacity-20 border-white bg-primary">
+            <h1 className={`text-xl font-bold text-white ${montserrat.className}`}>R E S E R V I</h1>
             <div className="flex gap-4">
                 <Dialog>
                     <DialogTrigger asChild>
@@ -76,6 +82,7 @@ export const Header = () => {
                         <span className="max-sm:hidden">Crear bloque de tiempo</span>
                     </Button>
                 )}
+                <ModeToggle />
             </div>
         </header>
     )

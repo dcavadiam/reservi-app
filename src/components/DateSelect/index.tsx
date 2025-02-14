@@ -15,10 +15,10 @@ export const DateSelect = () => {
     }
 
    return (
-       <div className="flex gap-2">
-           <Button onClick={handlePrevDay}> {"<"} </Button>
-           <Button>{date.toLocaleDateString()}</Button>
-           <Button onClick={handleNextDay}> {">"} </Button>
+       <div className="flex gap-2 items-center">
+           <Button variant="outline" onClick={handlePrevDay}> {"<"} </Button>
+           <span>{date.toLocaleDateString()}</span>
+           <Button variant="outline" onClick={handleNextDay}> {">"} </Button>
        </div>
    )
 }

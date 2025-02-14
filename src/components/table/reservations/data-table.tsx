@@ -61,18 +61,18 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     return (
         <div>
             <div>
-                <div className="flex items-center gap-4 py-4 justify-between">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 py-4 justify-between">
                     <h2 className="text-xl font-bold text-black dark:text-white">Lista de usuarios</h2>
 
 
-                    <div className="flex items-center py-4 gap-3">
+                    <div className="flex flex-col md:flex-row md:items-center py-4 gap-3 ">
                         <DateSelect />
                         <MultiSelect />
                         <Input
                             placeholder="Buscar..."
                             value={filterText}
                             onChange={(event) => setFilterText(event.target.value)}
-                            className="max-w-sm"
+                            className="md:max-w-sm"
                         />
                     </div>
                 </div>
@@ -104,7 +104,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
                                 {
                                     row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell className="text-gray-900 dark:text-white" key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))
