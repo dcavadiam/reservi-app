@@ -10,14 +10,21 @@ import { createContext, useContext, useState, ReactNode, useEffect } from "react
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [users, setUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<User[]>(() => {
+        if (typeof window !== "undefined") {
+            const storedUsers = localStorage.getItem("reservi-users");
+            return storedUsers ? JSON.parse(storedUsers) : [];
+        }
+        return []; // Estado inicial vacío
+    });
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [todayDate, setTodayDate] = useState<Date>(new Date());
 
     // Load users from localStorage on mount
     useEffect(() => {
         const loadUsers = async () => {
-            if (typeof window !== "undefined") {
+            if (typeof window === "undefined") return;
+            try {
                 // If the localStorage has users, set them
                 const storedUsers = localStorage.getItem("reservi-users");
                 if (storedUsers) {
@@ -46,6 +53,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
                         console.error("Error al obtener usuarios random:", error);
                     }
                 }
+            } catch (error) {
+                console.error("Error al obtener usuarios localStorage:", error);
             }
         };
         loadUsers();
